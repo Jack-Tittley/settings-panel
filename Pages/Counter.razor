@@ -1,0 +1,143 @@
+﻿@page "/counter";
+
+@using System.Diagnostics
+@namespace Pages
+@inject Controller instance;
+<script src="/RenderChart.js"></script>
+
+
+
+<PageTitle>Counter</PageTitle>
+<link rel="stylesheet" href="Counter.razor.css">
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Poppins" />
+
+
+
+
+@{@if (instance.ShowAddProfilePopup)
+{ 
+  
+    <AddProfilePopup  OnStateChanged="OnChildStateChanged" controller="@instance.getAddProfileController()"></AddProfilePopup>
+}
+}
+
+@{
+    if (instance.ShowThresholdPopup)
+    {
+        <ThresholdPopup OnStateChanged="OnChildStateChanged" thresholdController = "@instance.GetThresholdController()" row="instance.SelectedRow "></ThresholdPopup>
+
+
+    }
+}
+
+@{
+    if (instance.ShowEditMenu)
+    {
+        <EditMenu OnStateChanged="OnChildStateChanged" controller="@instance.GetEditMenuController()" profile ="@instance.SelectedProfile"></EditMenu>
+    }
+}
+   
+
+
+
+
+
+
+<div class="settings-container">
+    <div class="headings-container">
+        <div>
+            <h1 class="heading">Dashboard Settings</h1>
+        </div>
+        <div>
+            <h5 class="selected-mode">Quality</h5>
+        </div>
+
+
+    </div>
+
+
+
+    <div class= "search-bar">
+        <div>
+            <p class="search-icon">&#x1F50D;</p>
+        </div>
+
+        <p class="search-text">Search</p>
+    </div>
+
+
+  
+    
+   <div class="quality-profile-container">
+       <div class= "heading-row">
+
+           <p class = "quality-profile-text">Quality Profile</p>
+           <p @onclick="(() => instance.ShowAddProfilePopup = true)"  class ="quality-profile-add">&#x002B; Add</p>
+
+       </div>
+
+       <div class="profile-list">
+
+            @foreach(var profile in instance.getProfiles())
+            {
+                if (instance.EditingProfileId == profile.Profile.Id)
+                {<div class="rename-container">
+                    <input class="rename-input" @bind="EditProfileText" type="text"   />
+                    <button class="save-button" @onclick="(() => {instance.EditProfileName(profile.Profile.Id, EditProfileText); EditProfileText = null; instance.EditingProfileId = 0;})">Save</button>
+                </div>
+                }
+                else{
+                <div class=@((instance.getCurrentProfile().Profile.Id != profile.Profile.Id ) ? "profile-container" : "profile-container selected-profile")
+                     @onclick="(() => {instance.setUserProfile(profile.Profile.Id); StateHasChanged();})">
+                    <p class="profile-name">@profile.Profile.Name</p>
+                    <p @onclick="(() => instance.ClickedEditMenu(profile))" class="profile-edit-button">…</p>
+                </div>
+            }
+            }
+            
+
+          
+           
+       </div>
+       <div class="button-container">
+            <button id="cancel">Cancel</button>
+           <button id="save">Save</button>
+           
+       </div>
+        
+            
+    </div>
+
+
+
+
+
+
+
+    <Profile OnStateChanged="OnChildStateChanged" userProfile="@instance.getCurrentProfile()"></Profile>
+   
+ </div>        
+         
+       
+  
+
+@code{
+    public string? EditProfileText { get; set; }
+    protected override void OnInitialized()
+    {
+        Controller instance = new Controller();
+        instance.InitialiseProfiles();
+        instance.setUserProfile(1);
+
+
+
+
+    }
+
+    private async Task OnChildStateChanged()
+    {
+        StateHasChanged();
+    }
+
+    }

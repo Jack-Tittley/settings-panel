@@ -1,0 +1,109 @@
+﻿@inject Controller instance;
+@namespace Pages
+
+@if (instance.ShowThresholdPopup)
+{
+    <div class="container">
+        <h1>Threshold Settings</h1>
+        <p>@row.Metrics.MetricName</p>
+        <div class="input-container">
+            <div class="threshold-row">
+                <div class="color-block" id="red"></div>
+                <div class="number-container">
+                    <p class="threshold-number">0</p>
+
+                </div>
+                <p>to</p>
+                <div class="number-container">
+                    <p class="threshold-number">@Math.Round(ThresholdController.ThresholdOne, 1)</p>
+                    <div class="arrows">
+                        <p @onclick="(() => {ThresholdController.ThresholdUp(1); StateHasChanged();})" class="up">&#11165;</p>
+                        <p @onclick="(() => {ThresholdController.ThresholdDown(1); StateHasChanged();})" class="down">&#11167;</p>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="threshold-row">
+                <div class="color-block" id="orange"></div>
+                <div class="number-container">
+                    <p class="threshold-number">@Math.Round(ThresholdController.ThresholdOne, 1)</p>
+
+                </div>
+                <p>to</p>
+                <div class="number-container">
+                    <p class="threshold-number">@Math.Round(ThresholdController.ThresholdTwo, 1)</p>
+                    <div class="arrows">
+                        <p @onclick="(() => {ThresholdController.ThresholdUp(2); StateHasChanged();})" class="up">&#11165;</p>
+                        <p @onclick="(() => {ThresholdController.ThresholdDown(2); StateHasChanged();})" class="down">&#11167;</p>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+
+            <div class="threshold-row">
+                <div class="color-block" id="blue"></div>
+                <div class="number-container">
+                    <p class="threshold-number">@Math.Round(ThresholdController.ThresholdTwo, 1)</p>
+
+                </div>
+                <p>to</p>
+                <div class="number-container">
+                    <p class="threshold-number">100</p>
+                    <div class="arrows">
+                        <p @onclick="(() => {ThresholdController.ThresholdUp(3); StateHasChanged();})" class="up">&#11165;</p>
+                        <p @onclick="(() => {ThresholdController.ThresholdDown(3); StateHasChanged();})" class="down">&#11167;</p>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            <p>Preview</p>
+            <div class="line-container">
+                <div class="red-line" style="@(ThresholdController.getThresholdLineWidth(1))"> </div>
+                <div class="orange-line" style="@(ThresholdController.getThresholdLineWidth(2))"> </div>
+                <div class="blue-line" style="@(ThresholdController.getThresholdLineWidth(3))"> </div>
+
+
+            </div>
+
+        </div>
+
+
+        <button id="save-button" @onclick="(() =>{instance.UpdateThreshold(ThresholdController.ThresholdOne, ThresholdController.ThresholdTwo, ThresholdController.ThresholdThree); SettingsUpdated(); instance.CloseThresholdPopup();})">Save</button>
+        <button id="cancel-button" @onclick="(() => instance.CloseThresholdPopup())">Cancel</button>
+    </div>
+}
+
+
+
+
+@code{
+    [Parameter]
+    public ThisMetricRow row {get;set;}
+    [Parameter]
+    public ThresholdController ThresholdController{get;set;}
+
+    [Parameter]
+    public EventCallback OnStateChanged { get; set; }
+
+    private async Task SettingsUpdated()
+    {
+
+        if (OnStateChanged.HasDelegate)
+        {
+            await OnStateChanged.InvokeAsync();
+        }
+    }
+}
+
+
+
+

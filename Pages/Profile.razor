@@ -1,0 +1,121 @@
+﻿
+@inherits UserProfile;
+@inject Controller instance;
+@inject IJSRuntime JSRuntime;
+@namespace Pages
+
+
+
+
+    <div class="notes-container">
+      <div class="heading-row">
+          <p>Notes</p>
+      </div>
+      <div class="notes-textarea">
+        <textarea @bind="userProfile.Profile.Notes" rows="4" class="notes-input"></textarea>
+      </div>
+
+    </div>
+
+    <div class="mode-toggle-container">
+            </div>
+
+    <div class="buttons-container">
+    </div>
+
+     <div class="pass-rate-container">
+
+<p id="donut-chart-passrate-text">@(userProfile.Profile.PassRate + "%") </p>
+
+    <div id="donut-chart"></div>
+    
+         <p id="pass-rate-text">Overall Pass Rate</p>
+        
+         <div class="pass-rate-buttons-container">
+        <p id="pass-rate-number">@userProfile.Profile.PassRate%</p>
+        <div class="arrows">
+            <p @onclick="(() => {userProfile.ThresholdUp(); StateHasChanged(); ReRender();})" class="up">&#11165;</p>
+            <p @onclick="(() => {userProfile.ThresholdDown(); StateHasChanged(); ReRender();})" class="down">&#11167;</p>
+        </div>
+        
+         </div>
+         
+
+    </div>
+     <div id="quality-metrics-header">
+            
+             <p id="a">Quality Metric</p>
+           
+             <p id="b">Include in Score</p>
+             <p id="c">Score Weighting</p>
+             <p id="d">Thresholds</p>
+        </div>
+
+        
+     <div class="quality-metrics-container">
+
+    @foreach (var thisMetricRow in userProfile.Profile.Metrics)
+    {
+             <MetricRow  thisMetricRow="thisMetricRow"
+            OnStateChanged="OnChildStatecChanged">
+
+             </MetricRow>
+         }
+    
+    </div>
+
+    
+
+
+@code{
+
+
+    [Parameter]
+
+    public UserProfile userProfile { get; set; }
+
+    [Parameter]
+    public EventCallback OnStateChanged { get; set; }
+
+    private IJSObjectReference module;
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("renderDonutChart", "donut-chart", userProfile.Profile.PassRate, (100 - userProfile.Profile.PassRate));
+        }
+        else
+        {
+            await JSRuntime.InvokeVoidAsync("updateChart", userProfile.Profile.PassRate, (100 - userProfile.Profile.PassRate));
+        }
+
+        
+        
+    }
+
+
+    private async Task ReRender()
+    {
+
+        if (OnStateChanged.HasDelegate)
+        {
+            await OnStateChanged.InvokeAsync();
+        }
+    }
+
+   
+   
+
+
+    private async Task OnChildStatecChanged()
+    {
+        ReRender();
+  
+    }
+}
+
+
+
+

@@ -1,0 +1,166 @@
+﻿.quality-metric-row {
+    display: flex;
+    flex-direction: row;
+    height: 40px;
+    line-height: 40px;
+    width: 100%;
+}
+
+.score-weighting-container {
+    display: flex;
+    flex-direction: row;
+    padding:1px;
+   
+}
+
+.weight-text {
+    position: relative;
+    left: -2px;
+    font-variant-numeric: tabular-nums;
+    margin: auto;
+}
+
+    .score-weighting-container div {
+        padding-right: 12px;
+    }
+
+
+
+.weight-one {
+    display: flex;
+    flex-direction: row;
+    color: #FC4646;
+}
+
+.weight-text-container{
+    width:6px;
+}
+
+
+
+
+.up {
+    font-size: 18px;
+    position: relative;
+    top: -6px;
+    width: 7px;
+    height: 4px;
+    opacity: 1;
+}
+
+.down {
+    position: relative;
+    top: -14px;
+    width: 7px;
+    height: 4px;
+    opacity: 1;
+    font-size: 18px;
+}
+
+.weight-two {
+    display: flex;
+    flex-direction: row;
+    color: #FACA93;
+}
+
+.weight-three {
+    display: flex;
+    flex-direction: row;
+    color: #8FDEE9;
+}
+
+.not-included {
+    visibility: hidden;
+}
+
+
+
+
+
+#eye {
+    margin-left: 12px;
+    margin-right: 12px;
+    font-size: 20px;
+    padding-bottom: 2px;
+    user-select: none;
+}
+
+#question-mark {
+    margin-right: 10px;
+}
+
+.checkbox {
+    margin-left: 30px;
+    margin-right: 60px;
+    
+    
+   
+}
+
+    .checkbox:checked:after {
+        filter: invert(1);
+        color:white;
+    }
+
+.quality-metric-row *{
+    user-select:none;
+}
+
+   
+
+.threshold-line {
+    display:flex;
+    
+    
+    position: relative;
+    top: 13px;
+    left: 5px;
+    
+    width: 100px;
+    height: 10px;
+    
+}
+
+.red-line {
+    background-color: #FC4646;
+    height: 10px;
+    
+}
+
+.yellow-line {
+    background-color: #FACA93;
+    height: 10px;
+}
+
+.blue-line {
+    height: 10px;
+    background-color: #8FDEE9;
+}
+
+.threshold-line-blue {
+    z-index:99;
+    background-color: #88AFD2 !important;
+}
+
+#cog {
+    padding-left: 25px;
+    padding-right:5px;
+}
+
+.quality-metric-name {
+    width: 200px;
+    font-size: 12px;
+}
+
+
+.quality-metric-row-invisible * {
+    color: #CFCFCF;
+    filter: saturate(0);
+}
+
+.quality-metric-row-invisible .threshold-line div, .quality-metric-row-invisible .checkbox  {
+    background-color: #CFCFCF;
+    color: #CFCFCF;
+    filter: saturate(0);
+    accent-color: #CFCFCF;
+}

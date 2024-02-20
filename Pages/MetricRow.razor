@@ -1,0 +1,87 @@
+﻿@inherits ThisMetricRow;
+@inject Controller instance;
+@namespace Pages
+
+
+
+<div class=@(thisMetricRow.Metrics.IsVisible ? "quality-metric-row" : "quality-metric-row quality-metric-row-invisible")>
+    
+    <p id="eye" @onclick="(() => thisMetricRow.VisibilityToggled())">&#x1F441;</p>
+    <p class="quality-metric-name">@thisMetricRow.Metrics.MetricName</p>
+    <p id="question-mark">?</p>
+    <input type="checkbox" @bind="thisMetricRow.Metrics.IncludeInScore" class="checkbox" @onclick="(() => thisMetricRow.CheckboxChanged())" />
+    <div class="score-weighting-container">
+        <div class=@(thisMetricRow.Metrics.IncludeInScore ? "weight-one" : "weight-one not-included")>
+            <div class="weight-text-container">
+                <p class="weight-text">@thisMetricRow.Metrics.WeightOne</p>
+               
+            </div>
+            <div class="arrows">
+                <p @onclick="@(() => thisMetricRow.WeightUp(1))" class="up">&#11165;</p>
+                <p @onclick="@(() => thisMetricRow.WeightDown(1))" class="down">&#11167;</p>
+               
+            </div>
+        </div>
+        <div class=@(thisMetricRow.Metrics.IncludeInScore ? "weight-two" : "weight-two not-included")>
+            <div class="weight-text-container">
+                <p class="weight-text">@thisMetricRow.Metrics.WeightTwo</p>
+            </div>
+            <div class="arrows">
+                <p @onclick="@(() => thisMetricRow.WeightUp(2))" class="up">&#11165;</p>
+                <p @onclick="@(() => thisMetricRow.WeightDown(2))" class="down">&#11167;</p>
+            </div>
+        </div>
+
+        <div class=@(thisMetricRow.Metrics.IncludeInScore ? "weight-three" : "weight-three not-included")>
+            <div class="weight-text-container">
+                <p class="weight-text">@thisMetricRow.Metrics.WeightThree</p>
+            </div>
+            <div class="arrows">
+                <p @onclick="@(() => thisMetricRow.WeightUp(3))" class="up">&#11165;</p>
+                <p @onclick="@(() => thisMetricRow.WeightDown(3))" class="down">&#11167;</p>
+            </div>
+        </div>
+       
+    </div>
+    <div class=@(thisMetricRow.Metrics.IncludeInScore ? "threshold-line" : "threshold-line threshold-line-blue")>
+        <div class=@(thisMetricRow.Metrics.IncludeInScore ? "red-line" : "red-line; threshold-line-blue") style="@(thisMetricRow.GetThresholdLineWidth(1))">
+            
+        </div>
+        <div class=@(thisMetricRow.Metrics.IncludeInScore ? "yellow-line" : "yellow-line; threshold-line-blue") style="@(thisMetricRow.GetThresholdLineWidth(2))">
+            
+        </div> 
+        <div class=@(thisMetricRow.Metrics.IncludeInScore ? "blue-line" : "blue-line; threshold-line-blue") style="@(thisMetricRow.GetThresholdLineWidth(3))"></div>
+   
+
+        
+    </div>
+    <p id="cog" @onclick="(() => {instance.ThresholdButtonclicked(thisMetricRow); instance.ShowThresholdPopup = true; CogClicked(); })">&#x2699;</p>
+</div>
+
+          
+@code{
+   
+
+    [Parameter]
+    public ThisMetricRow thisMetricRow { get; set; }
+
+    [Parameter]
+    public EventCallback OnStateChanged { get; set; }
+
+    private async Task CogClicked()
+    {
+
+        if (OnStateChanged.HasDelegate)
+        {
+            await OnStateChanged.InvokeAsync();
+        }
+    }
+}
+
+
+
+
+
+                
+
+                

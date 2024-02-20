@@ -1,0 +1,45 @@
+﻿@namespace Pages
+@inject Controller instance;
+@inject IJSRuntime JSRuntime
+
+
+
+@{@if (instance.ShowEditMenu)
+    {
+        <div class="edit-menu-container">
+            <p @onclick="(() => {instance.EditingProfileId = Profile.Profile.Id; ProfileUpdated(); instance.CloseEditMenu();})  ">Rename</p>
+            <p @onclick="(() => {instance.createProfile(Profile.Profile.Id); ProfileUpdated(); instance.CloseEditMenu();})">Copy</p>
+            <p @onclick="(() =>{instance.DeleteProfile(Profile); ProfileUpdated(); instance.CloseEditMenu();})"class="delete">Delete</p>
+        </div>
+      
+    }
+}
+
+
+
+@code{
+    [Parameter]
+    public EditMenuController Controller { get; set; }
+    [Parameter]
+    public UserProfile Profile { get; set; }
+
+   
+        [Parameter]
+        public EventCallback OnStateChanged { get; set; }
+
+        private async Task ProfileUpdated()
+        {
+            
+            if (OnStateChanged.HasDelegate)
+            {
+                await OnStateChanged.InvokeAsync();
+            }
+        }
+    private async Task CopyTextToClipboard()
+    {
+        await JSRuntime.InvokeVoidAsync("clipboardCopy.copyText", Profile.Profile.Name);
+    }
+}
+    
+
+

@@ -1,0 +1,58 @@
+﻿@inject Controller instance;
+@namespace Pages
+
+
+@{@if (instance.ShowAddProfilePopup)
+    {
+
+        <div class="profile-popup-container">
+            <h1>Add Quality Profile</h1>
+            <p>Select Profile to copy as start</p>
+            <form class="profile-list-popup">
+
+
+                @foreach (UserProfile profile in instance.getProfiles())
+                {
+                    <div>
+
+                        <input  type="radio" class="input" name="selected-profile" @onclick="(() => controller.SelectedProfile = profile)" />
+                        <label for="@profile.Profile.Name">@profile.Profile.Name.</label>
+                    </div>
+
+
+                }
+            </form>
+
+            <div>
+                <button id ="ok" @onclick="(() => {controller.clickedOK();  ListUpdated(); instance.ShowAddProfilePopup = false; controller.SelectedProfile = null;})">
+                    Ok
+                </button>
+                <button id = "cancel" @onclick="(() => instance.ShowAddProfilePopup = false)">Cancel</button>
+            </div>
+        </div>
+    }
+}
+
+
+
+@code{
+    [Parameter]
+    public AddProfilePopupController controller { get; set; }
+
+
+    [Parameter]
+    public EventCallback OnStateChanged { get; set; }
+
+   
+
+        private async Task ListUpdated()
+        {
+            
+            if (OnStateChanged.HasDelegate)
+            {
+                await OnStateChanged.InvokeAsync();
+            }
+        }
+    }
+
+

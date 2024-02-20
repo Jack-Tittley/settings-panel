@@ -1,0 +1,359 @@
+﻿
+.notes-container {
+    display: inline;
+    margin-left: 31.97px;
+    margin-top: 19.46px;
+    margin-bottom: 43.09px;
+    width: 307px;
+    height: 130px;
+    /* UI Properties */
+    border: 1px solid #A0A6AC;
+    border-radius: 2px;
+    opacity: 1;
+}
+
+textarea {
+    resize: none;
+    width: 100%;
+    border: none;
+    outline: none;
+}
+
+.heading-row {
+    display: flex;
+    flex-direction: row;
+    height: 40px;
+    gap: 120px;
+    background-color: #F8F8F8;
+    line-height: 40px;
+    padding-left: 13px;
+    border-bottom: 2px solid #A0A6AC;
+}
+
+.mode-toggle-container {
+    margin-left: auto;
+    margin-top: 110px;
+    margin-right: 28.93px;
+    width: 175px;
+    height: 34px;
+    /* UI Properties */
+    opacity: 1;
+}
+
+.pass-rate-container {
+    display:flex;
+    flex-direction:row;
+    
+    margin-right: 20px;
+    margin-top: 22px;
+    width: 650px;
+    height: 154px;
+    /* UI Properties */
+    border: 1px solid #A0A6AC;
+    border-radius: 2px;
+    opacity: 1;
+}
+
+.quality-metrics-container {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+    margin-top: 18px;
+    padding-top: 50px;
+    width: 650px;
+    height: 377px;
+    /* UI Properties */
+    border: 1px solid #A0A6AC;
+    border-radius: 2px;
+    opacity: 1;
+    overflow: scroll;
+    scrollbar-width: none;
+}
+
+.quality-metrics-container::-webkit-scrollbar {
+    display: none;
+}
+
+#quality-metrics-header {
+    z-index: 99;
+    position: fixed;
+    top: 440px;
+    left: 886px;
+    display: flex;
+    flex-direction: row;
+    height: 50px;
+    line-height: 25px;
+    width: 650px;
+    background-color: #F8F8F8;
+    padding-left: 13px;
+    border-bottom: 2px solid #A0A6AC;
+    border-top: 1px solid #A0A6AC;
+    border-left: 1px solid #A0A6AC;
+    border-right: 1px solid #A0A6AC;
+}
+
+#a {
+    margin-left: 35px;
+    margin-top: auto;
+    margin-bottom: auto;
+    white-space: nowrap;
+    overflow: visible;
+}
+
+
+#b {
+    margin-left: 100px;
+    text-align: center;
+    width: 80px;
+    padding-left: 22px;
+}
+
+#c {
+    padding-left: 40px;
+    margin-top: auto;
+    margin-bottom: auto;
+    white-space: nowrap;
+    overflow: visible;
+}
+
+#d {
+    margin-left: 30px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 50px;
+}
+
+
+
+
+
+.quality-metric-row {
+    display: flex;
+    flex-direction: row;
+    height: 40px;
+    line-height: 40px;
+    width: 100%;
+}
+
+.score-weighting-container {
+    display: flex;
+    flex-direction: row;
+    padding:1px;
+   
+}
+
+.weight-text {
+    position: relative;
+    left: -2px;
+    font-variant-numeric: tabular-nums;
+    margin: auto;
+}
+
+    .score-weighting-container div {
+        padding-right: 12px;
+    }
+
+
+
+.weight-one {
+    display: flex;
+    flex-direction: row;
+    color: #FC4646;
+}
+
+.weight-text-container{
+    width:6px;
+}
+
+
+
+
+.up {
+    font-size: 18px;
+    position: relative;
+    top: -6px;
+    width: 7px;
+    height: 4px;
+    opacity: 1;
+}
+
+.down {
+    position: relative;
+    top: -14px;
+    width: 7px;
+    height: 4px;
+    opacity: 1;
+    font-size: 18px;
+}
+
+.weight-two {
+    display: flex;
+    flex-direction: row;
+    color: #FACA93;
+}
+
+.weight-three {
+    display: flex;
+    flex-direction: row;
+    color: #8FDEE9;
+}
+
+.not-included {
+    visibility: hidden;
+}
+
+
+
+
+
+#eye {
+    margin-left: 12px;
+    margin-right: 12px;
+    font-size: 20px;
+    padding-bottom: 2px;
+    user-select: none;
+}
+
+#question-mark {
+    margin-right: 10px;
+}
+
+.checkbox {
+    margin-left: 30px;
+    margin-right: 60px;
+}
+
+.quality-metric-row *{
+    user-select:none;
+}
+
+   
+
+.threshold-line {
+    display:flex;
+    
+    
+    position: relative;
+    top: 13px;
+    left: 5px;
+    
+    width: 100px;
+    height: 10px;
+    
+}
+
+.red-line {
+    background-color: #FC4646;
+    height: 10px;
+    
+}
+
+.yellow-line {
+    background-color: #FACA93;
+    height: 10px;
+}
+
+.blue-line {
+    height: 10px;
+    background-color: #8FDEE9;
+}
+
+.threshold-line-blue {
+    z-index:99;
+    background-color: #88AFD2 !important;
+}
+
+#cog {
+    padding-left: 35px;
+}
+
+.quality-metric-name {
+    width: 200px;
+    font-size: 12px;
+}
+
+
+.quality-metric-row-invisible * {
+    color: #CFCFCF;
+    filter: saturate(0);
+}
+
+.quality-metric-row-invisible .threshold-line div, .quality-metric-row-invisible .checkbox {
+    background-color: #CFCFCF;
+    color: #CFCFCF;
+    filter: saturate(0);
+    accent-color: #CFCFCF;
+}
+
+#donut-chart{
+    position:relative;
+    top:20px;
+    left:0px;
+    width:200px;
+    height:200px;
+}
+
+#pass-rate-text{
+    margin-top:auto;
+    margin-bottom:auto;
+    font-weight:700;
+    margin-right:20px;
+}
+
+.pass-rate-container div{
+    display:flex;
+    flex-direction:row;
+}
+
+.pass-rate-container p{
+    margin-top:auto;
+    margin-bottom:auto;
+}
+
+.pass-rate-buttons-container {
+    display: flex;
+    flex-direction: row;
+    margin-top:auto;
+    margin-bottom:auto;
+    border: 1px solid #A0A6AC;
+    border-radius: 2px;
+    opacity: 1;
+    width: 92px;
+    height: 23px;
+}
+
+.pass-rate-container p{
+    margin-left: 10px;
+  
+}
+
+#pass-rate-number{
+    width:25px;
+    left:20px;
+}
+.arrows {
+    display: flex;
+    flex-direction: column;
+}
+
+.up{
+    margin-left:auto;
+    top:-15px;
+    left:27px;
+}
+
+.down {
+    margin-left: auto;
+    top: -6px;
+    left: 10px;
+}
+
+#donut-chart-passrate-text{
+    position:absolute;
+    z-index:2;
+    top:236px;
+    right:563px;
+    font-size:20px;
+    font-weight:bold;
+   
+}
